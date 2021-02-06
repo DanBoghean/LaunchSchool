@@ -2,7 +2,7 @@
 
 ## Lesson 2 Notes
 
-###### Logical Operators
+#### Logical Operators
 - Use parentheses with expressions that involve multiple operators
 
 ```
@@ -13,7 +13,7 @@
   - In the case of `&&`, JavaScript short-circuits when it realizes that the entire expression can't be true; that is when it encounters a false sub-expression
   - With `||`, it short-circuits when it realizes that the expression can't be false; that is, at least one sub-expression is true.
 
-###### Truthiness
+#### Truthiness
 - JavaScript evaluates almost all values as true. These are the exceptions that evaluate as false:
   - `false`
   - `undefined`
@@ -22,7 +22,7 @@
   - `""`
   - `NaN`
 
-###### Debugging
+#### Debugging
 1. **Reproduce the Error**
    - Reproduce the exact error to make sure that it is consistent
 1. **Determine the Boundaries of the Error**
