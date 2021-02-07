@@ -1,0 +1,20 @@
+{
+  "en":{
+    "Welcome": "Welcome to the Calculator",
+    "Number1": "What is the first number",
+    "InvalidNumber": "Hmm... that doesn't look like a valid number",
+    "Number2": "What is the second number?",
+    "Operation": "What operation would you like to perform?\n1) Add 2) Subtract 3) Multiply 4) Divide",
+    "InvalidOperation": "Must choose 1, 2, 3, or 4",
+    "Recalculate": "Would you like to perform another calculation? (y/n)"
+  },
+  "es":{
+    "Welcome": "Bienvenido a la calculadora!",
+    "Number1": "What is the first number",
+    "InvalidNumber": "Hmm... that doesn't look like a valid number",
+    "Number2": "What is the second number?",
+    "Operation": "What operation would you like to perform?\n1) Add 2) Subtract 3) Multiply 4) Divide",
+    "InvalidOperation": "Must choose 1, 2, 3, or 4",
+    "Recalculate": "Would you like to perform another calculation? (y/n)"
+  }
+}
