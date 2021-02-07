@@ -48,43 +48,43 @@
 - **Advanced Debugging**
   - Use the advanced features of a debugging tool
 
-  ### Type Coercion
-  **Explicit Type Coercion**
-  - **Coercing values to numbers**
-    - `Number()` coerces strings to numbers. 
-      - It also coerces other other types such as `{}`, `[]`, and other primitive types like undefined and null.
-      ```
-      > Number({})
-      NaN
-      > Number([])
-      0
-      > Number([4])
-      4
-      > Number([undefined])
-      0
-      > Number([1, 2, 3])
-      NaN
-      > Number(undefined)
-      NaN
-      > Number(null)
-      0
-      > Number(true)
-      1
-      > Number(false)
-      0
-      ```
-    - `parseInt()` and `parseFloat()` convert strings to integers or floating points respectively
-      - `parseInt()` also accepts a radix as a second argument to convert from a specific base number
-      - They attempt to convert a string even if there are non-numeric characters. They will stop parsing when they find a non-numeric character
-      ```
-      > parseInt('12oz')
-      12
-      > parseInt('+12oz')
-      12
-      > Number('12oz')
-      NaN
-      ```
-    - You can use a unary operator like + to coerce a value to a number. It works similar to the Number() function but is more succinct
+### Type Coercion
+**Explicit Type Coercion**
+- **Coercing values to numbers**
+  - `Number()` coerces strings to numbers. 
+    - It also coerces other other types such as `{}`, `[]`, and other primitive types like undefined and null.
+    ```
+    > Number({})
+    NaN
+    > Number([])
+    0
+    > Number([4])
+    4
+    > Number([undefined])
+    0
+    > Number([1, 2, 3])
+    NaN
+    > Number(undefined)
+    NaN
+    > Number(null)
+    0
+    > Number(true)
+    1
+    > Number(false)
+    0
+    ```
+  - `parseInt()` and `parseFloat()` convert strings to integers or floating points respectively
+    - `parseInt()` also accepts a radix as a second argument to convert from a specific base number
+    - They attempt to convert a string even if there are non-numeric characters. They will stop parsing when they find a non-numeric character
+    ```
+    > parseInt('12oz')
+    12
+    > parseInt('+12oz')
+    12
+    > Number('12oz')
+    NaN
+    ```
+  - You can use a unary operator like + to coerce a value to a number. It works similar to the Number() function but is more succinct
     ```
     > +""
     0
