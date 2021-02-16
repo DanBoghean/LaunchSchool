@@ -5,7 +5,6 @@ const WINNING_COMBOS = {
   scissors: {paper: 'cuts', lizard: 'decapitates'},
   spock: {scissors: 'smashes', rock: 'vaporizes'},
   lizard: {spock: 'poisons', paper: 'eats'},
-  sptest: {rock: 'test', paper: 'test'}
 };
 let score = {player: 0, computer: 0};
 let gamesPlayed = 0;
