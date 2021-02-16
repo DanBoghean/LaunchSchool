@@ -325,6 +325,45 @@
       if (answer.toLowerCase() === 'n') break;
     }
     ```
+- **Organization**
+  - Learn to organize chunks of code to make it easier to read. 
+  - Name your functions appropriately so that you know what they do
+  - Don't mutate the caller during iteration
+    ```
+    let words = ['scooby', 'do', 'on', 'channel', 'two'];
+    
+    words.forEach(word => {
+      console.log(word);
+      words.shift();
+    });
+    
+    console.log(words); // logs ['channel', 'two']
+    ```
+  - Don't use assignment in a conditional
+    ```
+    // bad
+    let someVariable;
+    
+    if (someVariable = getAValueFromSomewhere()) {
+      console.log(someVariable);
+    }
+    
+    // good
+    
+    let someVariable = getAValueFromSomewhere();
+    
+    if (someVariable) {
+      console.log(someVariable);
+    }
+    ```
+  - User underscore for unused callback parametesr
+    ```
+    let names = ['kim', 'joe', 'sam'];
+    names.forEach(_ => {
+      console.log('Got a name!')
+    });
+    ```
+  - 
 
 ### Variable Scope
 **Global Scope**
@@ -404,6 +443,50 @@
       ```
 
   - **Block Scope**
-    - Blocks are segments of code statements grouped by opening and clsoing curly braces `{}` such as `if/else` and `for` and `while` loops, but not all code between curly braces is a block (such as a function body)
+    - Blocks are segments of code statements grouped by opening and closing curly braces `{}` such as `if/else` and `for` and `while` loops, but not all code between curly braces is a block (such as a function body)
     - The rules for block scopes are identical to those of function scopes
-    - 
+
+### Passing By Reference vs Value
+  - When you pass primitive values into functions, no operation performed on a primitive value can permanently alter the value.
+  - When using objects, JavaScript exhibits a combination of behaviors from both pass-by-reference as well as pass-by-value. Some people call this *pass-by-value-of-the-reference* or *call-by-sharing*
+  - **When an operation within the function mutates its argument, it affects the original object.
+  - Functions and methods that mutate their callers are called destructive functions or methods. (e.g. Array.prototype.push)
+    ```
+    function addNames(arr, name) {
+      arr.push(name);
+    }
+    
+    let names = ["bob", "kim"];
+    addNames(names, "jim");
+    console.log(names); // => [ 'bob', 'kim', 'jim' ]
+    ```
+  - Reassignment is not a destrucive operation
+    ```
+    function addName(arr, name) {
+      arr = arr.concat([name]);
+    }
+    
+    let names = ["bob", "kim"];
+    addName(names, "jim");
+    console.log(names); // => [ 'bob', 'kim', ]
+    ```
+  - Values returned by functions can be thought of as being pass-by-value or pass-by-reference
+    - Primitive values are treated as pass-by-value
+    ```
+    function foo(number) {
+      return number;
+    }
+    
+    let number = 1;
+    let newNumber = foo(number);
+    ```
+    - Objects can be treated as pass-by-value or pass-by-reference
+    ```
+    function bar(array) {
+      return array;
+    }
+    
+    let array = [1, 2, 3];
+    let newArray = bar(array);
+    console.log(array === newArray); // true
+    ```
