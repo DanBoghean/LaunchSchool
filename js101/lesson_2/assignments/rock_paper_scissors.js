@@ -10,6 +10,20 @@ let score = {player: 0, computer: 0};
 let gamesPlayed = 0;
 let totalGames = 0;
 
+let options = Object.keys(WINNING_COMBOS);
+let shorthandOptions = {};
+let printOptions = [];
+options.forEach((option) => {
+  let firstChar = option[0];
+  if (!Object.keys(shorthandOptions).includes(firstChar)) {
+    shorthandOptions[firstChar] = option;
+    printOptions.push(`(${firstChar})${option.slice(1,)}`);
+  } else {
+    shorthandOptions[option.slice(0,2)] = option;
+    printOptions.push(`(${option.slice(0,2)})${option.slice(2,)}`);
+  }
+});
+
 function prompt(message) {
   console.log(`=> ${message}`);
 }
@@ -63,34 +77,42 @@ function getRandomNumber(list) {
                       list.length);
 }
 
-function isInvalidNumber(num) {
-  return num <= 0 || Number.isNaN(num);
+function isInvalidNumber(input) {
+  return input % 2 !== 1 || input <= 0 || Number.isNaN(Number(input));
 }
 
 function gamesToPlay() {
   prompt('How many games do you want to play? ');
   let answer = readline.question().toLowerCase();
   while (isInvalidNumber(answer)) {
-    prompt('Please enter a number greater than 0');
+    prompt('Please enter a number greater than 0 and an odd number.');
     answer = readline.question().toLowerCase();
   }
 
   return answer;
 }
 
-let options = Object.keys(WINNING_COMBOS);
-let shorthandOptions = {};
-let printOptions = [];
-options.forEach((option) => {
-  let firstChar = option[0];
-  if (!Object.keys(shorthandOptions).includes(firstChar)) {
-    shorthandOptions[firstChar] = option;
-    printOptions.push(`(${firstChar})${option.slice(1,)}`);
-  } else {
-    shorthandOptions[option.slice(0,2)] = option;
-    printOptions.push(`(${option.slice(0,2)})${option.slice(2,)}`);
+function validateChoice(choice) {
+  let result = choice;
+  while (true) {
+    if (result.length <= 2) {
+      if (shorthandOptions[result.toLowerCase()]) {
+        result = shorthandOptions[result];
+        break;
+      }
+      prompt("That's not a valid choice");
+      result = readline.question();
+    } else {
+      if (options.includes(result)) {
+        break;
+      }
+      prompt("That's not a valid choice");
+      result = readline.question();
+    }
   }
-});
+
+  return result;
+}
 
 totalGames = gamesToPlay();
 console.clear();
@@ -98,28 +120,12 @@ while (gamesPlayed < totalGames) {
   prompt(`Choose one, type the full word or the letter(s) in the parenthesis:
     ${printOptions.join(', ')}`);
   let choice = readline.question();
-
-  while (true) {
-    if (choice.length <= 2) {
-      if (shorthandOptions[choice.toLowerCase()]) {
-        choice = shorthandOptions[choice];
-        break;
-      }
-      prompt("That's not a valid choice");
-      choice = readline.question();
-    } else {
-      if (options.includes(choice)) {
-        break;
-      }
-      prompt("That's not a valid choice");
-      choice = readline.question();
-    }
-  }
+  choice = validateChoice(choice);
 
   let randomIndex = getRandomNumber(options);
   let computerChoice = options[randomIndex];
 
-  console.clear()
+  console.clear();
   displayWinner(choice, computerChoice);
   displayScoreboard(score);
 
