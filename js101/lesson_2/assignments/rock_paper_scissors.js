@@ -4,7 +4,8 @@ const WINNING_COMBOS = {
   paper: {rock: 'covers', spock: 'disproves'},
   scissors: {paper: 'cuts', lizard: 'decapitates'},
   spock: {scissors: 'smashes', rock: 'vaporizes'},
-  lizard: {spock: 'poisons', paper: 'eats'}
+  lizard: {spock: 'poisons', paper: 'eats'},
+  sptest: {rock: 'test', paper: 'test'}
 };
 let score = {player: 0, computer: 0};
 let gamesPlayed = 0;
@@ -14,14 +15,18 @@ let options = Object.keys(WINNING_COMBOS);
 let shorthandOptions = {};
 let printOptions = [];
 options.forEach((option) => {
-  let firstChar = option[0];
-  if (!Object.keys(shorthandOptions).includes(firstChar)) {
-    shorthandOptions[firstChar] = option;
-    printOptions.push(`(${firstChar})${option.slice(1,)}`);
-  } else {
-    shorthandOptions[option.slice(0,2)] = option;
-    printOptions.push(`(${option.slice(0,2)})${option.slice(2,)}`);
+  let shorthand;
+  let index;
+  // eslint-disable-next-line id-length
+  for (let i = 0; i < option.length; i++) {
+    shorthand = option.slice(0, i + 1);
+    if (!Object.keys(shorthandOptions).includes(shorthand)) {
+      index = i;
+      break;
+    }
   }
+  shorthandOptions[shorthand] = option;
+  printOptions.push(`(${shorthand})${option.slice(index + 1,)}`);
 });
 
 function prompt(message) {
