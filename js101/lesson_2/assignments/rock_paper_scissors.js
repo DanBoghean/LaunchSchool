@@ -97,13 +97,13 @@ function validateChoice(choice) {
   while (true) {
     if (result.length <= 2) {
       if (shorthandOptions[result.toLowerCase()]) {
-        result = shorthandOptions[result];
+        result = shorthandOptions[result.toLowerCase()];
         break;
       }
       prompt("That's not a valid choice");
       result = readline.question();
     } else {
-      if (options.includes(result)) {
+      if (options.includes(result.toLowerCase())) {
         break;
       }
       prompt("That's not a valid choice");
@@ -121,11 +121,12 @@ while (gamesPlayed < totalGames) {
     ${printOptions.join(', ')}`);
   let choice = readline.question();
   choice = validateChoice(choice);
+  console.log(choice);
 
   let randomIndex = getRandomNumber(options);
   let computerChoice = options[randomIndex];
 
-  console.clear();
+  //console.clear();
   displayWinner(choice, computerChoice);
   displayScoreboard(score);
 
