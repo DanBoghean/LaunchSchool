@@ -77,8 +77,7 @@ function displayScoreboard(currentScore) {
 }
 
 function getRandomNumber(list) {
-  return Math.floor(Math.random() *
-                      list.length);
+  return Math.floor(Math.random() * list.length);
 }
 
 function isInvalidNumber(input) {
@@ -125,7 +124,6 @@ while (gamesPlayed < totalGames) {
     ${printOptions.join(', ')}`);
   let choice = readline.question();
   choice = validateChoice(choice);
-  console.log(choice);
 
   let randomIndex = getRandomNumber(options);
   let computerChoice = options[randomIndex];
