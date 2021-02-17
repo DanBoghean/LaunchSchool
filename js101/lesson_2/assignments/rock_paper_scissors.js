@@ -6,9 +6,17 @@ const WINNING_COMBOS = {
   spock: {scissors: 'smashes', rock: 'vaporizes'},
   lizard: {spock: 'poisons', paper: 'eats'},
 };
+
 let score = {player: 0, computer: 0};
 let gamesPlayed = 0;
 let totalGames = 0;
+
+function initializeGame() {
+  score = {player: 0, computer: 0};
+  gamesPlayed = 0;
+  totalGames = gamesToPlay();
+  console.clear();
+}
 
 let options = Object.keys(WINNING_COMBOS);
 let shorthandOptions = {};
@@ -128,8 +136,20 @@ function validateChoice(choice) {
   return result;
 }
 
-totalGames = gamesToPlay();
-console.clear();
+function displayEndGame() {
+  let playerScore = score['player'];
+  let computerScore = score['computer'];
+  let playerWinsAll = playerScore > computerScore;
+  let winner = playerWinsAll ? `You won ${playerScore} out of ${totalGames} games.`
+    : `Computer won ${computerScore} out of ${totalGames} games.`;
+  let winnnerMessage = playerWinsAll ? 'CONGRATULATIONS!' : "SORRY!";
+
+  console.log(winnnerMessage);
+  console.log(winner);
+  console.log();
+}
+
+initializeGame();
 while (true) {
   while (gamesPlayed < totalGames) {
     prompt(`Choose one, type the full word or the letter(s) in the parenthesis:
@@ -146,16 +166,8 @@ while (true) {
 
     let majorityWin = Math.floor(totalGames / 2);
     if (score['player'] > majorityWin || score['computer'] > majorityWin) {
-      let playerScore = score['player'];
-      let computerScore = score['computer'];
-      let playerWinsAll = playerScore > computerScore;
-      let winner = playerWinsAll ? `You won ${playerScore} out of ${totalGames} games.`
-        : `Computer won ${computerScore} out of ${totalGames} games.`;
-      let winnnerMessage = playerWinsAll ? 'CONGRATULATIONS!' : "SORRY!";
-
-      console.log(winnnerMessage);
-      console.log(winner);
-      console.log();
+      displayEndGame();
+      break;
     }
 
     if (choice !== computerChoice) {
@@ -166,4 +178,6 @@ while (true) {
   if (playAgain() === 'n') {
     break;
   }
+
+  initializeGame();
 }
