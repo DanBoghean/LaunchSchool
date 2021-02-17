@@ -95,6 +95,17 @@ function gamesToPlay() {
   return answer;
 }
 
+function playAgain() {
+  prompt('Would you like to play again? (y/n)');
+  let answer = readline.question().toLowerCase();
+  while (answer !== 'y' && answer !== 'n') {
+    prompt('Please select y or n.');
+    answer = readline.question().toLowerCase();
+  }
+
+  return answer.toLowerCase();
+}
+
 function validateChoice(choice) {
   let result = choice;
   while (true) {
@@ -119,36 +130,40 @@ function validateChoice(choice) {
 
 totalGames = gamesToPlay();
 console.clear();
-while (gamesPlayed < totalGames) {
-  prompt(`Choose one, type the full word or the letter(s) in the parenthesis:
-    ${printOptions.join(', ')}`);
-  let choice = readline.question();
-  choice = validateChoice(choice);
+while (true) {
+  while (gamesPlayed < totalGames) {
+    prompt(`Choose one, type the full word or the letter(s) in the parenthesis:
+      ${printOptions.join(', ')}`);
+    let choice = readline.question();
+    choice = validateChoice(choice);
 
-  let randomIndex = getRandomNumber(options);
-  let computerChoice = options[randomIndex];
+    let randomIndex = getRandomNumber(options);
+    let computerChoice = options[randomIndex];
 
-  //console.clear();
-  displayWinner(choice, computerChoice);
-  displayScoreboard(score);
+    //console.clear();
+    displayWinner(choice, computerChoice);
+    displayScoreboard(score);
 
-  let majorityWin = Math.floor(totalGames / 2);
-  if (score['player'] > majorityWin || score['computer'] > majorityWin) {
+    let majorityWin = Math.floor(totalGames / 2);
+    if (score['player'] > majorityWin || score['computer'] > majorityWin) {
+      let playerScore = score['player'];
+      let computerScore = score['computer'];
+      let playerWinsAll = playerScore > computerScore;
+      let winner = playerWinsAll ? `You won ${playerScore} out of ${totalGames} games.`
+        : `Computer won ${computerScore} out of ${totalGames} games.`;
+      let winnnerMessage = playerWinsAll ? 'CONGRATULATIONS!' : "SORRY!";
+
+      console.log(winnnerMessage);
+      console.log(winner);
+      console.log();
+    }
+
+    if (choice !== computerChoice) {
+      gamesPlayed += 1;
+    }
+  }
+
+  if (playAgain() === 'n') {
     break;
   }
-
-  if (choice !== computerChoice) {
-    gamesPlayed += 1;
-  }
 }
-
-let playerScore = score['player'];
-let computerScore = score['computer'];
-let playerWinsAll = playerScore > computerScore;
-let winner = playerWinsAll ? `You won ${playerScore} out of ${totalGames} games.`
-  : `Computer won ${computerScore} out of ${totalGames} games.`;
-let winnnerMessage = playerWinsAll ? 'CONGRATULATIONS!' : "SORRY!";
-
-console.log(winnnerMessage);
-console.log(winner);
-console.log();
