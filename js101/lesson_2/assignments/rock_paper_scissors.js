@@ -21,20 +21,23 @@ function initializeGame() {
 let options = Object.keys(WINNING_COMBOS);
 let shorthandOptions = {};
 let printOptions = [];
-options.forEach((option) => {
-  let shorthand;
-  let index;
-  // eslint-disable-next-line id-length
-  for (let i = 0; i < option.length; i++) {
-    shorthand = option.slice(0, i + 1);
-    if (!Object.keys(shorthandOptions).includes(shorthand)) {
-      index = i;
-      break;
+
+function getShorthandOptions(options) {
+  options.forEach((option) => {
+    let shorthand;
+    let index;
+    // eslint-disable-next-line id-length
+    for (let i = 0; i < option.length; i++) {
+      shorthand = option.slice(0, i + 1);
+      if (!Object.keys(shorthandOptions).includes(shorthand)) {
+        index = i;
+        break;
+      }
     }
-  }
-  shorthandOptions[shorthand] = option;
-  printOptions.push(`(${shorthand})${option.slice(index + 1,)}`);
-});
+    shorthandOptions[shorthand] = option;
+    printOptions.push(`(${shorthand})${option.slice(index + 1,)}`);
+  });
+}
 
 function prompt(message) {
   console.log(`=> ${message}`);
@@ -115,21 +118,21 @@ function playAgain() {
 }
 
 function validateChoice(choice) {
-  let result = choice;
+  let result = choice.toLowerCase();
   while (true) {
     if (result.length <= 2) {
-      if (shorthandOptions[result.toLowerCase()]) {
-        result = shorthandOptions[result.toLowerCase()];
+      if (shorthandOptions[result]) {
+        result = shorthandOptions[result];
         break;
       }
       prompt("That's not a valid choice");
-      result = readline.question();
+      result = readline.question().toLowerCase();
     } else {
-      if (options.includes(result.toLowerCase())) {
+      if (options.includes(result)) {
         break;
       }
       prompt("That's not a valid choice");
-      result = readline.question();
+      result = readline.question().toLowerCase();
     }
   }
 
@@ -137,8 +140,8 @@ function validateChoice(choice) {
 }
 
 function displayEndGame() {
-  let playerScore = score['player'];
-  let computerScore = score['computer'];
+  let playerScore = score.player;
+  let computerScore = score.computer;
   let playerWinsAll = playerScore > computerScore;
   let winner = playerWinsAll ? `You won ${playerScore} out of ${totalGames} games.`
     : `Computer won ${computerScore} out of ${totalGames} games.`;
@@ -149,8 +152,10 @@ function displayEndGame() {
   console.log();
 }
 
+getShorthandOptions(options);
 initializeGame();
 while (true) {
+  let majorityWin = Math.floor(totalGames / 2);
   while (gamesPlayed < totalGames) {
     prompt(`Choose one, type the full word or the letter(s) in the parenthesis:
       ${printOptions.join(', ')}`);
@@ -164,8 +169,7 @@ while (true) {
     displayWinner(choice, computerChoice);
     displayScoreboard(score);
 
-    let majorityWin = Math.floor(totalGames / 2);
-    if (score['player'] > majorityWin || score['computer'] > majorityWin) {
+    if (score.player > majorityWin || score.computer > majorityWin) {
       displayEndGame();
       break;
     }
