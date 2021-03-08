@@ -164,18 +164,10 @@ function renderCards(person, hideDealerCards = false) {
   console.log(joinLines(cardArr));
 }
 
-function isBust(total) {
-  if (total > TOTAL_GAME_NUM) {
-    return true;
-  }
-
-  return false;
-}
-
 function hit(deck, person) {
   dealCard(deck, person);
 
-  if (isBust(person.total)) {
+  if (person.total > TOTAL_GAME_NUM) {
     return true;
   }
 
@@ -205,7 +197,7 @@ function playAgain() {
     result = readline.question().toLowerCase();
   }
 
-  return result;
+  return result === 'y';
 }
 
 // Main Program
