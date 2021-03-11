@@ -272,7 +272,7 @@
   - Make sure that functions do one thing and that their responsibility is limited.
     - This implies that your functions shouold be short. If it's more than 15 lines long, consider splitting it into 2 or more fucntions
   - A function is said to have **side effects** if it does any of the following:
-    - It reassigns any non-local varaible. Reassigning a variable in the outer scope would be a side effect.
+    - It reassigns any non-local variable. Reassigning a variable in the outer scope would be a side effect.
     - It mutates the value of any object referenced by a non-local variable. Mutating an array or object argument, for instance, would be a side effect.
     - It reads from or writes to a file, network connection, browser, or the system hardware. **Side effects like this include writing to the console log and reading input from the terminal**
     - It raises an exception without handling it
