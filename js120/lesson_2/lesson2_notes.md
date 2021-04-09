@@ -62,7 +62,7 @@
       - If the object's prototype changes in some way, the changes are observable in the inheriting object as well
     
   ## Iterating over Object with prototypes
-  - A `for/in` loop iteratoes over an object's properties. The iteration includes properties from the objects in is prototype chain. Use the `hasOwnProperty` to skip the protoype properties
+  - A `for/in` loop iterates over an object's properties. The iteration includes properties from the objects in is prototype chain. Use the `hasOwnProperty` to skip the protoype properties
   - `Object.keys` returns an object's "own" property keys - you don't need to use the `hasOwnProperty`
 
   ## The Prototype Chain
@@ -91,7 +91,7 @@
   ```
 
   ## Property Look-Up in the Prototype Chain
-  - JavaScript first looks for an "own" property with the name on the object. If the object doesn't definte the property, JavaScript looks for i in the object's prototype. If it can't find the property there, it looks in the prototype's prototype. This process continues until it finds the property or it reaches `Object.prototype`. If `Object.prototype` also doesn't define the property, the property access evalutes to `undefined`
+  - JavaScript first looks for an "own" property with the name on the object. If the object doesn't definte the property, JavaScript looks for it in the object's prototype. If it can't find the property there, it looks in the prototype's prototype. This process continues until it finds the property or it reaches `Object.prototype`. If `Object.prototype` also doesn't define the property, the property access evalutes to `undefined`
 
   - When two objects in the same prototype chain have a property with the same name, the object that's closer to the calling object takes precedence
   ```
